@@ -1,0 +1,111 @@
+@using MonAmourBistro.Controllers
+@{
+    var current = Sim.Current(Context);
+    var roles = new[] { SimRole.Vizitator, SimRole.Client, SimRole.Administrator };
+
+    var pages = new[]
+    {
+        (Name: "Acasă", Url: "/", Min: SimRole.Vizitator),
+        (Name: "Galerie", Url: "/galerie", Min: SimRole.Vizitator),
+        (Name: "Contact", Url: "/contact", Min: SimRole.Vizitator),
+        (Name: "Autentificare", Url: "/autentificare", Min: SimRole.Vizitator),
+        (Name: "Rezervare", Url: "/rezervare", Min: SimRole.Client),
+        (Name: "Contul meu", Url: "/cont", Min: SimRole.Client),
+        (Name: "Panou de administrare", Url: "/admin", Min: SimRole.Administrator),
+        (Name: "Gestiunea meniului", Url: "/admin/meniu", Min: SimRole.Administrator),
+        (Name: "Gestiunea paginilor", Url: "/admin/pagini", Min: SimRole.Administrator),
+        (Name: "Lista rezervărilor", Url: "/admin/rezervari", Min: SimRole.Administrator),
+    };
+}
+
+<div class="text-center mb-5">
+    <div class="script gold">Cine ce poate</div>
+    <h1 class="section-title">ROLURI ȘI ACCES</h1>
+    <p class="muted narrow">
+        Site-ul are trei roluri. Alegeți unul de mai jos ca să simulați cum arată și ce poate face fiecare utilizator.
+        Este doar o demonstrație: rolul se schimbă dintr-un buton, fără parole reale.
+    </p>
+    <p class="muted">Rol curent: <span class="role-badge role-@current.ToString().ToLowerInvariant()">@Sim.Label(current)</span></p>
+</div>
+
+<div class="row g-4 mb-5">
+    <div class="col-md-4">
+        <div class="role-card @(current == SimRole.Vizitator ? "active" : "")">
+            <h2 class="info-title">VIZITATOR</h2>
+            <p class="muted">Persoană fără cont. Poate doar să se informeze despre restaurant.</p>
+            <ul class="role-list">
+                <li class="yes">Vede pagina principală, galeria și contactul</li>
+                <li class="yes">Se poate autentifica</li>
+                <li class="no">Nu poate face rezervări</li>
+                <li class="no">Nu are cont personal</li>
+                <li class="no">Nu are acces la administrare</li>
+            </ul>
+            <a href="/roluri/seteaza/vizitator" class="btn-outline-dark-x w-100 text-center">Simulează Vizitator</a>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="role-card @(current == SimRole.Client ? "active" : "")">
+            <h2 class="info-title">CLIENT</h2>
+            <p class="muted">Persoană cu cont. Poate rezerva mese și își vede rezervările.</p>
+            <ul class="role-list">
+                <li class="yes">Tot ce poate vizitatorul</li>
+                <li class="yes">Face rezervări</li>
+                <li class="yes">Are pagina „Contul meu”</li>
+                <li class="no">Nu poate schimba meniul sau paginile</li>
+                <li class="no">Nu are acces la administrare</li>
+            </ul>
+            <a href="/roluri/seteaza/client" class="btn-outline-dark-x w-100 text-center">Simulează Client</a>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="role-card @(current == SimRole.Administrator ? "active" : "")">
+            <h2 class="info-title">ADMINISTRATOR</h2>
+            <p class="muted">Personalul restaurantului. Gestionează conținutul și rezervările.</p>
+            <ul class="role-list">
+                <li class="yes">Tot ce poate clientul</li>
+                <li class="yes">Gestionează meniul</li>
+                <li class="yes">Gestionează paginile</li>
+                <li class="yes">Vede lista tuturor rezervărilor</li>
+                <li class="yes">Intră în panoul de administrare</li>
+            </ul>
+            <a href="/roluri/seteaza/admin" class="btn-outline-dark-x w-100 text-center">Simulează Administrator</a>
+        </div>
+    </div>
+</div>
+
+<div class="text-center">
+    <div class="script gold">Tabel de acces</div>
+    <h2 class="section-title">CE PAGINI POATE VEDEA FIECARE</h2>
+</div>
+
+<div class="table-scroll">
+    <table class="role-table">
+        <thead>
+            <tr>
+                <th>Pagină</th>
+                @foreach (var r in roles)
+                {
+                    <th class="@(r == current ? "is-current" : "")">@Sim.Label(r)</th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var p in pages)
+            {
+                <tr>
+                    <td><a href="@p.Url">@p.Name</a> <span class="path">@p.Url</span></td>
+                    @foreach (var r in roles)
+                    {
+                        var ok = r >= p.Min;
+                        <td class="@(r == current ? "is-current" : "")"><span class="@(ok ? "yes" : "no")">@(ok ? "✔" : "✖")</span></td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<p class="muted text-center mt-4">
+    Încercați: alegeți „Vizitator” și deschideți <a href="/rezervare" class="gold-link">/rezervare</a>,
+    apoi alegeți „Client” și deschideți din nou. Meniul de sus se schimbă după rol.
+</p>

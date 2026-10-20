@@ -23,14 +23,14 @@ public class HomeController : Controller
     public IActionResult Gallery()
     {
         ViewData["Title"] = "Galerie";
-        return View("Page");
+        return View();
     }
 
     [HttpGet("/contact")]
     public IActionResult Contact()
     {
         ViewData["Title"] = "Contact";
-        return View("Page");
+        return View();
     }
 
     [HttpGet("/confidentialitate")]

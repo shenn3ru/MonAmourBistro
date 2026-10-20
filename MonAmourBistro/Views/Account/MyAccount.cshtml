@@ -1,0 +1,40 @@
+@using MonAmourBistro.Controllers
+@{
+    var role = Sim.Current(Context);
+    var isAdmin = role == SimRole.Administrator;
+}
+
+<div class="text-center mb-5">
+    <div class="script gold">Bine ați venit</div>
+    <h1 class="section-title">CONTUL MEU</h1>
+    <p class="muted narrow">
+        Aici își vede clientul datele contului și rezervările făcute. Pagina este vizibilă doar după autentificare.
+    </p>
+</div>
+
+<div class="row g-4 justify-content-center text-center">
+    <div class="col-md-5">
+        <div class="info-card">
+            <h2 class="info-title">DATELE MELE</h2>
+            <p class="muted mb-1">@(isAdmin ? "Administrator Demo" : "Client Demo")</p>
+            <p class="muted mb-1">@(isAdmin ? "admin@monamourbistro.md" : "client@exemplu.md")</p>
+            <p class="muted mb-0">Rol: <span class="role-badge role-@role.ToString().ToLowerInvariant()">@Sim.Label(role)</span></p>
+        </div>
+    </div>
+    <div class="col-md-5">
+        <div class="info-card">
+            <h2 class="info-title">REZERVĂRILE MELE</h2>
+            <p class="muted mb-1">24 octombrie, ora 19:00 &middot; 2 persoane</p>
+            <p class="muted mb-1">1 noiembrie, ora 13:30 &middot; 4 persoane</p>
+            <p class="muted mb-0"><em>Date demonstrative</em></p>
+        </div>
+    </div>
+</div>
+
+<div class="text-center mt-4">
+    <a href="/rezervare" class="btn-outline-dark-x">Rezervă o masă</a>
+    @if (isAdmin)
+    {
+        <a href="/admin" class="btn-outline-dark-x ms-2">Panou de administrare</a>
+    }
+</div>

@@ -1,0 +1,50 @@
+<div class="auth-box text-center">
+    <div class="script gold">Seara perfectă</div>
+    <h1 class="section-title">REZERVARE</h1>
+    <p class="muted">
+        Alegeți data, ora și numărul de persoane, iar noi vă confirmăm rezervarea.
+        Restaurantul are aproximativ 12 mese, așa că vă recomandăm să rezervați din timp.
+    </p>
+
+    <form id="reservationForm" class="auth-form text-start" novalidate>
+        <label for="name" class="form-label">Nume</label>
+        <input type="text" id="name" name="name" class="form-control mb-3" placeholder="Numele dvs." autocomplete="name" required />
+
+        <label for="phone" class="form-label">Telefon</label>
+        <input type="tel" id="phone" name="phone" class="form-control mb-3" placeholder="+373 000 00 000" autocomplete="tel" required />
+
+        <label for="date" class="form-label">Data</label>
+        <input type="date" id="date" name="date" class="form-control mb-3" required />
+
+        <label for="time" class="form-label">Ora</label>
+        <input type="time" id="time" name="time" class="form-control mb-3" required />
+
+        <label for="guests" class="form-label">Număr de persoane</label>
+        <select id="guests" name="guests" class="form-select mb-3" style="border-radius:0;padding:12px 14px;">
+            <option>1</option>
+            <option selected>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+            <option>6</option>
+            <option>7+</option>
+        </select>
+
+        <label for="notes" class="form-label">Mențiuni (opțional)</label>
+        <textarea id="notes" name="notes" class="form-control mb-4" rows="3" placeholder="Ocazie specială, alergii, preferințe de masă..."></textarea>
+
+        <button type="submit" class="btn-outline-dark-x w-100 mt-0 bg-transparent">Trimite rezervarea</button>
+        <div id="reservationMessage" class="alert alert-success mt-3 d-none" role="status">
+            Rezervarea a fost înregistrată (simulare). Vă mulțumim!
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <script>
+        document.getElementById("reservationForm").addEventListener("submit", function (e) {
+            e.preventDefault();
+            document.getElementById("reservationMessage").classList.remove("d-none");
+        });
+    </script>
+}

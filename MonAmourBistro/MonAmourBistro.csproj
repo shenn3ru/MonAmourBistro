@@ -7,6 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Views\Account\Contact.cshtml" />
+    <Content Remove="Views\Account\MyAccount.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Views\Account\MyAccount.cshtml" />
     <None Include="Views\_ViewImports.cshtml" />
   </ItemGroup>
 

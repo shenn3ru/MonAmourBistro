@@ -1,5 +1,8 @@
-﻿@{
+@using MonAmourBistro.Controllers
+@{
     var isHome = ViewData["IsHome"] as bool? ?? false;
+    var role = Sim.Current(Context);
+    var roleClass = "role-" + role.ToString().ToLowerInvariant();
 }
 <!DOCTYPE html>
 <html lang="ro">
@@ -20,6 +23,11 @@
             <span class="sep">|</span>
             <span>Sună-ne: +373 000 00 000</span>
         </div>
+        <div class="demo-bar">
+            Mod demonstrație &middot; rol curent:
+            <span class="role-badge @roleClass">@Sim.Label(role)</span>
+            <a href="/roluri">Schimbă rolul / vezi accesul</a>
+        </div>
         <nav class="navbar navbar-expand-lg navbar-dark">
             <div class="container-xl nav-row">
                 <a class="navbar-brand brand" href="/">MON AMOUR<small>B I S T R O</small></a>
@@ -35,7 +43,20 @@
                     <ul class="navbar-nav nav-right">
                         <li class="nav-item"><a class="nav-link" href="/galerie">Galerie</a></li>
                         <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/autentificare">Autentificare</a></li>
+                        @if (role == SimRole.Vizitator)
+                        {
+                            <li class="nav-item"><a class="nav-link" href="/autentificare">Autentificare</a></li>
+                        }
+                        else if (role == SimRole.Client)
+                        {
+                            <li class="nav-item"><a class="nav-link" href="/cont">Contul meu</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/roluri/seteaza/vizitator?returnUrl=/">Ieșire</a></li>
+                        }
+                        else
+                        {
+                            <li class="nav-item"><a class="nav-link" href="/admin">Admin</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/roluri/seteaza/vizitator?returnUrl=/">Ieșire</a></li>
+                        }
                     </ul>
                     <a href="/rezervare" class="btn-outline-light-x nav-cta">Rezervare</a>
                 </div>

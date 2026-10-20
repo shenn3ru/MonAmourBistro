@@ -1,0 +1,34 @@
+﻿@{
+    var items = new[]
+    {
+        (Img: "/img/galerie/1.jpg.jfif", Caption: "Supa zilei, servită caldă"),
+        (Img: "/img/galerie/2.jpg.jfif", Caption: "Felul principal al chef-ului"),
+        (Img: "/img/galerie/3.jpg.jfif", Caption: "Deserturi făcute în casă"),
+        (Img: "/img/galerie/4.jpg.jfif", Caption: "Sala restaurantului"),
+        (Img: "/img/galerie/5.jpg.jfif", Caption: "Cafea și ceaiuri aromate"),
+        (Img: "/img/galerie/6.jpg.jfif", Caption: "Seara la Mon Amour"),
+    };
+}
+
+<div class="text-center mb-5">
+    <div class="script gold">Priviți cu ochii</div>
+    <h1 class="section-title">GALERIE</h1>
+    <p class="muted narrow">
+        O privire în bucătăria și în sala Mon Amour Bistro: preparate proaspete, deserturi făcute în casă
+        și o atmosferă caldă, în care vă simțiți ca acasă.
+    </p>
+</div>
+
+<div class="gallery-grid">
+    @foreach (var item in items)
+    {
+        <figure class="gallery-item" style="background-image: linear-gradient(rgba(0,0,0,.15), rgba(0,0,0,.15)), url('@item.Img');">
+            <figcaption>@item.Caption</figcaption>
+        </figure>
+    }
+</div>
+
+<div class="text-center mt-5">
+    <p class="muted mb-0">Vă așteptăm cu drag la masă.</p>
+    <a href="/rezervare" class="btn-outline-dark-x">Rezervă o masă</a>
+</div>

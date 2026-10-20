@@ -1,0 +1,44 @@
+﻿<div class="auth-box text-center">
+    <div class="script gold">Bine ați revenit</div>
+    <h1 class="section-title">AUTENTIFICARE</h1>
+    <p class="muted">
+        Intrați în contul dvs. pentru a face o rezervare și pentru a vedea rezervările făcute la Mon Amour Bistro.
+    </p>
+
+    <form id="loginForm" class="auth-form text-start" novalidate>
+        <label for="email" class="form-label">E-mail</label>
+        <input type="email" id="email" name="email" class="form-control mb-3" placeholder="nume@exemplu.md" autocomplete="email" required />
+
+        <label for="password" class="form-label">Parolă</label>
+        <input type="password" id="password" name="password" class="form-control mb-4" placeholder="Parola dvs." autocomplete="current-password" required />
+
+        <button type="submit" class="btn-outline-dark-x w-100 mt-0 bg-transparent">Autentificare</button>
+        <div id="loginMessage" class="alert alert-secondary mt-3 d-none" role="alert">
+            Completați e-mailul și parola.
+        </div>
+    </form>
+
+    <div class="demo-hint mt-4 text-start">
+        <strong>Simulare:</strong> orice e-mail și orice parolă vă autentifică ca <strong>Client</strong>.
+        Dacă e-mailul începe cu <strong>admin</strong> (de exemplu admin@monamourbistro.md), intrați ca <strong>Administrator</strong>.
+        <a href="/roluri" class="gold-link">Vezi rolurile și accesul</a>.
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.getElementById("loginForm").addEventListener("submit", function (e) {
+            e.preventDefault();
+            var email = document.getElementById("email").value.trim();
+            var password = document.getElementById("password").value;
+            if (!email || !password) {
+                document.getElementById("loginMessage").classList.remove("d-none");
+                return;
+            }
+            var isAdmin = email.toLowerCase().indexOf("admin") === 0;
+            window.location.href = isAdmin
+                ? "/roluri/seteaza/admin?returnUrl=/admin"
+                : "/roluri/seteaza/client?returnUrl=/cont";
+        });
+    </script>
+}

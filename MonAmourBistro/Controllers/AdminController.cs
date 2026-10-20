@@ -6,37 +6,44 @@ namespace MonAmourBistro.Controllers;
 public class AdminController : Controller
 {
     [HttpGet("")]
+    [SimAuthorize(SimRole.Administrator)]
     public IActionResult Index()
     {
         ViewData["Title"] = "Panou de administrare";
-        return View("Page");
+        ViewData["Section"] = "dashboard";
+        return View("Index");
     }
 
     [HttpGet("login")]
     public IActionResult Login()
     {
-        ViewData["Title"] = "Autentificare administrator";
-        return View("Page");
+        return Redirect("/autentificare");
     }
 
     [HttpGet("meniu")]
+    [SimAuthorize(SimRole.Administrator)]
     public IActionResult Menu()
     {
         ViewData["Title"] = "Gestiunea meniului";
-        return View("Page");
+        ViewData["Section"] = "menu";
+        return View("Index");
     }
 
     [HttpGet("pagini")]
+    [SimAuthorize(SimRole.Administrator)]
     public IActionResult Pages()
     {
         ViewData["Title"] = "Gestiunea paginilor";
-        return View("Page");
+        ViewData["Section"] = "pages";
+        return View("Index");
     }
 
     [HttpGet("rezervari")]
+    [SimAuthorize(SimRole.Administrator)]
     public IActionResult Reservations()
     {
         ViewData["Title"] = "Lista rezervărilor";
-        return View("Page");
+        ViewData["Section"] = "reservations";
+        return View("Index");
     }
 }

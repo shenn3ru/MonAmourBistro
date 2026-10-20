@@ -1,0 +1,33 @@
+@using MonAmourBistro.Controllers
+@{
+    var current = Sim.Current(Context);
+    var needed = (SimRole)ViewData["Needed"]!;
+    var target = ViewData["Target"] as string ?? "/";
+    var back = Uri.EscapeDataString(target);
+    var slug = needed == SimRole.Administrator ? "admin" : "client";
+}
+
+<div class="auth-box text-center">
+    <div class="script gold">Ne pare rău</div>
+    <h1 class="section-title">ACCES INTERZIS</h1>
+    <p class="muted">
+        Pagina <strong>@target</strong> este disponibilă doar pentru rolul <strong>@Sim.Label(needed)</strong>.
+        Acum sunteți <span class="role-badge role-@current.ToString().ToLowerInvariant()">@Sim.Label(current)</span>.
+    </p>
+
+    @if (current == SimRole.Vizitator)
+    {
+        <p class="muted">Autentificați-vă ca să continuați.</p>
+        <a href="/autentificare" class="btn-outline-dark-x">Autentificare</a>
+    }
+    else
+    {
+        <p class="muted">Contul dvs. nu are drepturile necesare pentru această pagină.</p>
+    }
+
+    <div class="demo-hint mt-4 text-start">
+        <strong>Simulare:</strong>
+        <a href="/roluri/seteaza/@slug?returnUrl=@back" class="gold-link">Treceți la rolul @Sim.Label(needed) și deschideți pagina</a>
+        sau <a href="/roluri" class="gold-link">vedeți toate rolurile</a>.
+    </div>
+</div>

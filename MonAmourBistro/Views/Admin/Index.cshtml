@@ -1,0 +1,84 @@
+@{
+    var section = ViewData["Section"] as string ?? "dashboard";
+}
+
+<div class="text-center mb-4">
+    <div class="script gold">Zona administratorului</div>
+    <h1 class="section-title" style="text-transform: uppercase;">@ViewData["Title"]</h1>
+</div>
+
+<div class="admin-tabs text-center mb-5">
+    <a href="/admin" class="@(section == "dashboard" ? "active" : "")">Panou</a>
+    <a href="/admin/meniu" class="@(section == "menu" ? "active" : "")">Meniu</a>
+    <a href="/admin/pagini" class="@(section == "pages" ? "active" : "")">Pagini</a>
+    <a href="/admin/rezervari" class="@(section == "reservations" ? "active" : "")">Rezervări</a>
+</div>
+
+@if (section == "menu")
+{
+    <div class="table-scroll">
+        <table class="role-table">
+            <thead><tr><th>Preparat</th><th>Categorie</th><th>Preț</th><th>Acțiuni</th></tr></thead>
+            <tbody>
+                <tr><td>Supă cremă de ciuperci</td><td>Supe</td><td>65 lei</td><td><span class="path">Editează &middot; Șterge</span></td></tr>
+                <tr><td>Paste carbonara</td><td>Feluri principale</td><td>120 lei</td><td><span class="path">Editează &middot; Șterge</span></td></tr>
+                <tr><td>Tiramisu</td><td>Deserturi</td><td>70 lei</td><td><span class="path">Editează &middot; Șterge</span></td></tr>
+                <tr><td>Limonadă de casă</td><td>Băuturi</td><td>45 lei</td><td><span class="path">Editează &middot; Șterge</span></td></tr>
+            </tbody>
+        </table>
+    </div>
+    <p class="muted text-center mt-3"><em>Date demonstrative. Doar administratorul vede această pagină.</em></p>
+}
+else if (section == "pages")
+{
+    <div class="table-scroll">
+        <table class="role-table">
+            <thead><tr><th>Pagină</th><th>Adresă</th><th>Stare</th></tr></thead>
+            <tbody>
+                <tr><td>Acasă</td><td><span class="path">/</span></td><td><span class="yes">Publicată</span></td></tr>
+                <tr><td>Galerie</td><td><span class="path">/galerie</span></td><td><span class="yes">Publicată</span></td></tr>
+                <tr><td>Contact</td><td><span class="path">/contact</span></td><td><span class="yes">Publicată</span></td></tr>
+                <tr><td>Despre noi</td><td><span class="path">/despre-noi</span></td><td><span class="no">Ciornă</span></td></tr>
+            </tbody>
+        </table>
+    </div>
+    <p class="muted text-center mt-3"><em>Date demonstrative. Doar administratorul vede această pagină.</em></p>
+}
+else if (section == "reservations")
+{
+    <div class="table-scroll">
+        <table class="role-table">
+            <thead><tr><th>Client</th><th>Data</th><th>Ora</th><th>Persoane</th><th>Stare</th></tr></thead>
+            <tbody>
+                <tr><td>Maria Popescu</td><td>24 octombrie</td><td>19:00</td><td>2</td><td><span class="yes">Confirmată</span></td></tr>
+                <tr><td>Ion Rusu</td><td>24 octombrie</td><td>20:30</td><td>4</td><td><span class="yes">Confirmată</span></td></tr>
+                <tr><td>Elena Ciobanu</td><td>25 octombrie</td><td>13:00</td><td>6</td><td><span class="no">În așteptare</span></td></tr>
+            </tbody>
+        </table>
+    </div>
+    <p class="muted text-center mt-3"><em>Date demonstrative. Doar administratorul vede toate rezervările.</em></p>
+}
+else
+{
+    <div class="row g-4 justify-content-center text-center">
+        <div class="col-md-4">
+            <div class="info-card">
+                <h2 class="info-title">REZERVĂRI AZI</h2>
+                <div class="stat-number">8</div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="info-card">
+                <h2 class="info-title">PREPARATE ÎN MENIU</h2>
+                <div class="stat-number">24</div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="info-card">
+                <h2 class="info-title">PAGINI PUBLICATE</h2>
+                <div class="stat-number">5</div>
+            </div>
+        </div>
+    </div>
+    <p class="muted text-center mt-4"><em>Date demonstrative. Doar administratorul vede acest panou.</em></p>
+}
